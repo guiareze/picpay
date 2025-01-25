@@ -1,10 +1,9 @@
 package br.com.guiareze.picpay.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,5 +16,17 @@ public class UserEntity {
 
     @Column(name = "user_name")
     private String name;
+
+    @Column(name = "user_document")
+    private String document;
+
+    @Column(name = "user_email")
+    private String email;
+
+    @Column(name = "user_password")
+    private String password;
+
+    @OneToMany(mappedBy="user")
+    private List<AccountEntity> accountEntityList;
 
 }
