@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user) {
         UserEntity entityToSave = UserMapper.toEntity(user);
         UserEntity savedEntity = usersRepository.save(entityToSave);
+        // TODO - Efetuar a criação da conta associada ao usuário
         return UserMapper.toDomain(savedEntity);
     }
 
