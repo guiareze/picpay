@@ -1,4 +1,17 @@
-CREATE TABLE IF NOT EXISTS pessoa (
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL,
+    document VARCHAR(11) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    category VARCHAR(10) NOT NULL,
+    INDEX idx_document (document),
+    INDEX idx_email (email)
+);
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    amount DECIMAL(15,2) NOT NULL,
+    CONSTRAINT fk_user_account FOREIGN KEY (user_id) REFERENCES users(id)
 );
