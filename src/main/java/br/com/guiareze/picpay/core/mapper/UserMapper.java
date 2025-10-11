@@ -7,6 +7,7 @@ import br.com.guiareze.picpay.core.domain.Account;
 import br.com.guiareze.picpay.core.domain.CommomUser;
 import br.com.guiareze.picpay.core.domain.Logist;
 import br.com.guiareze.picpay.core.domain.User;
+import br.com.guiareze.picpay.persistence.entity.AccountEntity;
 import br.com.guiareze.picpay.persistence.entity.UserEntity;
 
 public class UserMapper {
@@ -55,7 +56,8 @@ public class UserMapper {
                 user.getDocument(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getCategory().toString()
+                user.getCategory().toString(),
+                toAccountEntity(user.getAccount())
         );
     }
 
@@ -68,7 +70,7 @@ public class UserMapper {
                     entity.getEmail(),
                     entity.getPassword(),
                     Category.valueOf(entity.getCategory()),
-                    null
+                    toAccount(entity.getAccount())
             );
         } else {
             return new Logist(
@@ -78,9 +80,24 @@ public class UserMapper {
                     entity.getEmail(),
                     entity.getPassword(),
                     Category.valueOf(entity.getCategory()),
-                    null
+                    toAccount(entity.getAccount())
             );
         }
+    }
+
+    private static AccountEntity toAccountEntity(Account account){
+        return new AccountEntity(
+                null,
+                null,
+                account.getAmount()
+        );
+    }
+
+    private static Account toAccount(AccountEntity entity){
+        return new Account(
+                entity.getId(),
+                entity.getAmount()
+        );
     }
 
 }

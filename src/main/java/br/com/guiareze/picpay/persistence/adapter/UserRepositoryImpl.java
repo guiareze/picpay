@@ -14,6 +14,7 @@ public class UserRepositoryImpl implements UsersRepository {
 
     @Override
     public UserEntity save(UserEntity userEntity) {
+        // TODO - add tratamento de exceptions
         return repository.save(userEntity);
     }
 
