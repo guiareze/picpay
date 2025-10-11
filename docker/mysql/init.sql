@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
     category VARCHAR(10) NOT NULL,
-    INDEX idx_document (document),
-    INDEX idx_email (email)
+    CONSTRAINT uq_document UNIQUE (document),
+    CONSTRAINT uq_email UNIQUE (email)
 );
 
 CREATE TABLE IF NOT EXISTS accounts (
