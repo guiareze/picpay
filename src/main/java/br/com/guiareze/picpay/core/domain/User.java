@@ -1,13 +1,26 @@
 package br.com.guiareze.picpay.core.domain;
 
 import br.com.guiareze.picpay.controller.enumeration.Category;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public record User(
-        Long id,
-        String name,
-        String document,
-        String email,
-        String password,
-        Category category
-) {
+import java.math.BigDecimal;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class User {
+
+    private Long id;
+    private String name;
+    private String document;
+    private String email;
+    private String password;
+    private Category category;
+    private Account account;
+
+    public abstract void transfer(User receiver, BigDecimal value);
 }
