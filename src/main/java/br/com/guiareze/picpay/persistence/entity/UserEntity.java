@@ -39,6 +39,4 @@ public class UserEntity {
     @Column(length = 10)
     private String category;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private AccountEntity account;
 }

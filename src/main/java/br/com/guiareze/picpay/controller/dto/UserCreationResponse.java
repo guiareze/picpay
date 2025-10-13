@@ -2,11 +2,11 @@ package br.com.guiareze.picpay.controller.dto;
 
 import br.com.guiareze.picpay.controller.enumeration.Category;
 
-public record UserRequest(
+public record UserCreationResponse(
+        Long id,
         String name,
         String document,
         String email,
-        String password,
         Category category
 ) {
 }

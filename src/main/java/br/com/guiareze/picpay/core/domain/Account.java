@@ -14,9 +14,10 @@ import java.math.BigDecimal;
 public class Account {
 
     private Long id;
+    private Long userId;
     private BigDecimal amount;
 
-    protected void updateAmount(BigDecimal amount) {
+    public void updateAmount(BigDecimal amount) {
         this.amount = this.amount.add(amount);
     }
 

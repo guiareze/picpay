@@ -1,7 +1,7 @@
 package br.com.guiareze.picpay.controller.adapter;
 
-import br.com.guiareze.picpay.controller.dto.UserRequest;
-import br.com.guiareze.picpay.controller.dto.UserResponse;
+import br.com.guiareze.picpay.controller.dto.UserCreationRequest;
+import br.com.guiareze.picpay.controller.dto.UserCreationResponse;
 import br.com.guiareze.picpay.core.domain.User;
 import br.com.guiareze.picpay.core.mapper.UserMapper;
 import br.com.guiareze.picpay.core.ports.core.service.UserService;
@@ -22,12 +22,12 @@ public class UserController {
     private final UserService service;
 
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
-        log.info("Controller  - Creating user: {}", userRequest);
-        User serviceResponse = service.createUser(UserMapper.toDomain(userRequest));
-        UserResponse userResponse  = UserMapper.toResponse(serviceResponse);
-        log.info("Controller  - User created: {}", userResponse);
-        return ResponseEntity.ok(userResponse);
+    public ResponseEntity<UserCreationResponse> createUser(@RequestBody UserCreationRequest userCreationRequest) {
+        log.info("Controller  - Creating user: {}", userCreationRequest);
+        User serviceResponse = service.createUser(UserMapper.toDomain(userCreationRequest));
+        UserCreationResponse userCreationResponse = UserMapper.toResponse(serviceResponse);
+        log.info("Controller  - User created: {}", userCreationResponse);
+        return ResponseEntity.ok(userCreationResponse);
     }
 
 }

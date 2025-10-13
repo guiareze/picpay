@@ -6,13 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class User {
+public class User {
 
     private Long id;
     private String name;
@@ -20,7 +18,5 @@ public abstract class User {
     private String email;
     private String password;
     private Category category;
-    private Account account;
 
-    public abstract void transfer(User receiver, BigDecimal value);
 }

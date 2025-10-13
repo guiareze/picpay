@@ -5,5 +5,6 @@ import br.com.guiareze.picpay.core.domain.User;
 public interface UserService {
 
     User createUser(User user);
+    User findById(Long id);
 
 }
