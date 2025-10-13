@@ -1,10 +1,10 @@
 package br.com.guiareze.picpay.persistence.adapter;
 
 import br.com.guiareze.picpay.core.domain.Account;
-import br.com.guiareze.picpay.core.domain.User;
 import br.com.guiareze.picpay.core.mapper.AccountMapper;
 import br.com.guiareze.picpay.core.ports.repository.AccountRepository;
 import br.com.guiareze.picpay.persistence.entity.AccountEntity;
+import br.com.guiareze.picpay.persistence.exception.PersistenceException;
 import br.com.guiareze.picpay.persistence.repository.AccountJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,15 +19,25 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Account find(Account account) {
-        AccountEntity response = repository.findByIdAndUserId(account.getId(), account.getUserId())
-                .orElseThrow(() -> new RuntimeException("Account not found")); //  TODO - criar exception customizada
-        return AccountMapper.toDomain(response);
+        Optional<AccountEntity> entityFound;
+        try {
+            entityFound = repository.findByIdAndUserId(account.getId(), account.getUserId());
+        } catch (Exception exception){
+            throw new PersistenceException("Error to find account by id", exception);
+        }
+        return entityFound.map(AccountMapper::toDomain)
+                .orElseThrow(()  -> new PersistenceException("Account not found"));
     }
 
     @Override
     public Account save(Account account) {
         AccountEntity entityEntry = AccountMapper.toEntity(account);
-        AccountEntity entitySaved = repository.save(entityEntry);
+        AccountEntity entitySaved;
+        try {
+            entitySaved = repository.save(entityEntry);
+        } catch (Exception exception){
+            throw new PersistenceException("Error to save account", exception);
+        }
         return AccountMapper.toDomain(entitySaved);
     }
 }

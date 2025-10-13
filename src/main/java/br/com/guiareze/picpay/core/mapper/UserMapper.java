@@ -8,8 +8,6 @@ import br.com.guiareze.picpay.persistence.entity.UserEntity;
 
 public class UserMapper {
 
-    // TODO - Ajustar tipagem da chave primaria de Long para String (UUID) ou de outra forma
-
     public static User toDomain(UserCreationRequest request){
         return new User(
                 null,
