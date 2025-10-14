@@ -1,6 +1,7 @@
 package br.com.guiareze.picpay.core.domain;
 
 import br.com.guiareze.picpay.controller.enumeration.Category;
+import br.com.guiareze.picpay.core.exception.UserValidationException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,11 @@ public class User {
     private String email;
     private String password;
     private Category category;
+
+    public void categoryValidation() {
+        if (!this.category.equals(Category.COMMOM)) {
+            throw new UserValidationException("Payer should be a commom user");
+        }
+    }
 
 }

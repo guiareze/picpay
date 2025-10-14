@@ -18,12 +18,24 @@ public class AccountRepositoryImpl implements AccountRepository {
     private final AccountJpaRepository repository;
 
     @Override
-    public Account find(Account account) {
+    public Account findById(Long id) {
+        Optional<AccountEntity> entityFound;
+        try {
+            entityFound = repository.findById(id);
+        } catch (Exception exception){
+            throw new PersistenceException("Error to find account by account id", exception);
+        }
+        return entityFound.map(AccountMapper::toDomain)
+                .orElseThrow(()  -> new PersistenceException("Account not found"));
+    }
+
+    @Override
+    public Account findByAccountIdAndUserId(Account account) {
         Optional<AccountEntity> entityFound;
         try {
             entityFound = repository.findByIdAndUserId(account.getId(), account.getUserId());
         } catch (Exception exception){
-            throw new PersistenceException("Error to find account by id", exception);
+            throw new PersistenceException("Error to find account by account id / user id", exception);
         }
         return entityFound.map(AccountMapper::toDomain)
                 .orElseThrow(()  -> new PersistenceException("Account not found"));

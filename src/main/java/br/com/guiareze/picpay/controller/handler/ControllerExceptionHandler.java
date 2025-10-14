@@ -1,5 +1,7 @@
 package br.com.guiareze.picpay.controller.handler;
 
+import br.com.guiareze.picpay.core.exception.AccountValidationException;
+import br.com.guiareze.picpay.core.exception.UserValidationException;
 import br.com.guiareze.picpay.persistence.exception.PersistenceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ProblemDetail;
@@ -18,6 +20,24 @@ public class ControllerExceptionHandler {
         problemDetail.setTitle("Persistence Error");
         problemDetail.setDetail(exception.getMessage());
         return ResponseEntity.status(500).body(problemDetail);
+    }
+
+    @ExceptionHandler(AccountValidationException.class)
+    public ResponseEntity<ProblemDetail> handleAccountValidationException(AccountValidationException exception) {
+        log.error("AccountValidationException", exception);
+        ProblemDetail problemDetail = ProblemDetail.forStatus(422);
+        problemDetail.setTitle("Account Validation Error");
+        problemDetail.setDetail(exception.getMessage());
+        return ResponseEntity.status(422).body(problemDetail);
+    }
+
+    @ExceptionHandler(UserValidationException.class)
+    public ResponseEntity<ProblemDetail> handleUserValidationException(UserValidationException exception) {
+        log.error("UserValidationException", exception);
+        ProblemDetail problemDetail = ProblemDetail.forStatus(422);
+        problemDetail.setTitle("User Validation Error");
+        problemDetail.setDetail(exception.getMessage());
+        return ResponseEntity.status(422).body(problemDetail);
     }
 
     @ExceptionHandler(Exception.class)

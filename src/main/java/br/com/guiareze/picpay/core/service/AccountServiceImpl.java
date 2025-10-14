@@ -1,7 +1,6 @@
 package br.com.guiareze.picpay.core.service;
 
 import br.com.guiareze.picpay.core.domain.Account;
-import br.com.guiareze.picpay.core.domain.User;
 import br.com.guiareze.picpay.core.ports.core.service.AccountService;
 import br.com.guiareze.picpay.core.ports.core.service.UserService;
 import br.com.guiareze.picpay.core.ports.repository.AccountRepository;
@@ -22,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account deposit(Account account) {
-        Account existingAccount = repository.find(account);
+        Account existingAccount = repository.findByAccountIdAndUserId(account);
         existingAccount.updateAmount(account.getAmount());
         return repository.save(existingAccount);
     }

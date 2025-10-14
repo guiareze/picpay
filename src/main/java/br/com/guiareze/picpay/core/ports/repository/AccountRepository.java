@@ -4,7 +4,8 @@ import br.com.guiareze.picpay.core.domain.Account;
 
 public interface AccountRepository {
 
-    Account find(Account account);
+    Account findById(Long id);
+    Account findByAccountIdAndUserId(Account account);
     Account save(Account account);
 
 }
