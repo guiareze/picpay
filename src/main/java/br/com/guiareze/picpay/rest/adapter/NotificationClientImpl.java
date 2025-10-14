@@ -32,7 +32,6 @@ public class NotificationClientImpl implements NotificationClient {
             log.info("Notification sent successfully for transfer: {}", transfer.toString());
         } catch (Exception exception){
             log.error("Error sending notification for transfer: {}", transfer.toString(), exception);
-//            throw new RestIntegrationException("Error sending notification", exception);
         }
     }
 
