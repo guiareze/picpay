@@ -11,3 +11,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
   application:
     name: picpay
+
+api:
+  authorization:
+    url: https://util.devi.tools/api/v2/authorize
