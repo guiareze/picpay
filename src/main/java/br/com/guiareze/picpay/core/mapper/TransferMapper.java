@@ -13,4 +13,12 @@ public class TransferMapper {
         );
     }
 
+    public static TransferRequest toRestRequest(Transfer transfer) {
+        return new TransferRequest(
+                transfer.getPayer(),
+                transfer.getPayee(),
+                transfer.getValue()
+        );
+    }
+
 }

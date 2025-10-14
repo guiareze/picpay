@@ -13,5 +13,7 @@ spring:
     name: picpay
 
 api:
+  notification:
+    url: https://util.devi.tools/api/v1/notify
   authorization:
     url: https://util.devi.tools/api/v2/authorize

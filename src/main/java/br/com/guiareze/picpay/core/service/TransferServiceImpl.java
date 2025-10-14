@@ -7,9 +7,12 @@ import br.com.guiareze.picpay.core.ports.core.service.TransferService;
 import br.com.guiareze.picpay.core.ports.repository.AccountRepository;
 import br.com.guiareze.picpay.core.ports.repository.UserRepository;
 import br.com.guiareze.picpay.core.ports.rest.AuthorizationClient;
+import br.com.guiareze.picpay.core.ports.rest.NotificationClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class TransferServiceImpl implements TransferService {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final AuthorizationClient authorizationClient;
+    private final NotificationClient notificationClient;
 
     @Override
     @Transactional
@@ -32,6 +36,9 @@ public class TransferServiceImpl implements TransferService {
         payerAccount.updateAmount(transfer.getValue().negate());
         accountRepository.save(payeeAccount);
         accountRepository.save(payerAccount);
+
+        CompletableFuture.runAsync(() -> notificationClient.sendNotification(transfer));
+
         return transfer;
     }
 

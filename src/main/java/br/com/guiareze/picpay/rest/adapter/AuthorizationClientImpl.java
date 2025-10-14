@@ -28,6 +28,7 @@ public class AuthorizationClientImpl implements AuthorizationClient {
     @Override
     public boolean isAuthorized() {
         log.info("Checking authorization status");
+
         AuthorizationResponse authorizationResponse;
         try{
             authorizationResponse = restClient.get()
