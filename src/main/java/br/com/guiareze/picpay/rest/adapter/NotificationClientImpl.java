@@ -2,7 +2,6 @@ package br.com.guiareze.picpay.rest.adapter;
 
 import br.com.guiareze.picpay.core.domain.Transfer;
 import br.com.guiareze.picpay.core.ports.rest.NotificationClient;
-import br.com.guiareze.picpay.rest.exception.RestIntegrationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,7 @@ public class NotificationClientImpl implements NotificationClient {
 
     @Override
     public void sendNotification(Transfer transfer) {
-        log.info("Sending notification for transfer: {}", transfer.toString());
+        log.info("Sending notification for transfer: {}", transfer);
 
         try{
             restClient.post()
@@ -29,9 +28,9 @@ public class NotificationClientImpl implements NotificationClient {
                     .body(transfer)
                     .retrieve()
                     .toBodilessEntity();
-            log.info("Notification sent successfully for transfer: {}", transfer.toString());
+            log.info("Notification sent successfully for transfer: {}", transfer);
         } catch (Exception exception){
-            log.error("Error sending notification for transfer: {}", transfer.toString(), exception);
+            log.error("Error sending notification for transfer: {}", transfer, exception);
         }
     }
 
