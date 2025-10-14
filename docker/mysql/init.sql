@@ -13,5 +13,6 @@ CREATE TABLE IF NOT EXISTS accounts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     amount DECIMAL(15,2) NOT NULL,
+    CONSTRAINT uq_user_id UNIQUE (user_id),
     CONSTRAINT fk_user_account FOREIGN KEY (user_id) REFERENCES users(id)
 );
